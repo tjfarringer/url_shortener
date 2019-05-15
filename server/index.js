@@ -21,11 +21,10 @@ mongoose.connect(mongoURI, connectOptions, (err, db) =>
 });
 // Require express module
 app.use(bodyParser.json());
-const PORT = 7000;
+const PORT = process.env.PORT || 7000 ;
 //Start server on Port 7000
 app.listen(PORT, () => {
  console.log(`Server started on port`, PORT);
- console.log(process.env.DB); 
  app.get('/', async (req, res) => res.send('Hello World!'))
 });
 

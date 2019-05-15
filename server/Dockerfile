@@ -20,4 +20,4 @@ ENV PORT 7000
 EXPOSE $PORT
 
 # When the container runs what command should it run
-CMD [ "npm", "start:prod" ]
+CMD [ "node", "index.js" ]
