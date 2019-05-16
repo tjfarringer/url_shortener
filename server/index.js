@@ -29,6 +29,9 @@ app.listen(PORT, () => {
 });
 
 
+var cors = require('cors');
+app.use(cors());
+app.options('*', cors());
 
 require("./routes/urlshorten")(app);
 
