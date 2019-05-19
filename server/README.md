@@ -1,6 +1,8 @@
 Deploying: 
 
-APP_NAME="url-shortener-test"
+
+
+APP_NAME="url-shortener-farringer-test"
 echo "Deploying to ${APP_NAME}"
 
 heroku container:push web --app ${APP_NAME}

@@ -21,17 +21,16 @@ mongoose.connect(mongoURI, connectOptions, (err, db) =>
 });
 // Require express module
 app.use(bodyParser.json());
-const PORT = process.env.PORT || 7000 ;
-//Start server on Port 7000
+var cors = require('cors');
+app.use(cors());
+const PORT = process.env.PORT || 3006 ;
+//Start server on Port 3005
 app.listen(PORT, () => {
  console.log(`Server started on port`, PORT);
  app.get('/', async (req, res) => res.send('Hello World!'))
 });
 
 
-var cors = require('cors');
-app.use(cors());
-app.options('*', cors());
 
 require("./routes/urlshorten")(app);
 
