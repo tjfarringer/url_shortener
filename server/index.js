@@ -1,36 +1,51 @@
-require('dotenv').config()
-require('./models/UrlShorten')
-
-
-const express = require("express");
-const app = express();
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const express = require("express");
+const bodyParser = require('body-parser')
+const urlRoutes = require('./routes/url');
+const cors = require('cors');
+
+require('./models/url')
+
+
+require('dotenv').config()
+
+
+
+
+
 const mongoURI = process.env.DB;
 const connectOptions = { 
   keepAlive: true, 
-  reconnectTries: Number.MAX_VALUE ,
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  reconnectTries: Number.MAX_VALUE 
 }; 
+
 //Connect to MongoDB 
 mongoose.Promise = global.Promise; 
 mongoose.connect(mongoURI, connectOptions, (err, db) => 
 { 
   if (err) console.log(`Error`, err); 
   console.log(`Connected to MongoDB`); 
-});
-// Require express module
-app.use(bodyParser.json());
-var cors = require('cors');
+}); 
+
+
+const port = process.env.PORT || 3005;
+const app = express();
+
 app.use(cors());
-const PORT = process.env.PORT || 3006 ;
-//Start server on Port 3005
-app.listen(PORT, () => {
- console.log(`Server started on port`, PORT);
- app.get('/', async (req, res) => res.send('Hello World!'))
-});
 
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
 
-require("./routes/urlshorten")(app);
+// parse application/json
+app.use(bodyParser.json());
+//app.options('*', cors()) // include before other routes
 
+app.get('/', async (req, res) => res.send('Hello World!'));
+
+
+app.use('/api', urlRoutes);
+
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))

@@ -43,7 +43,7 @@ class App extends React.Component{
     console.log(form.elements.originalUrl.value)
     console.log(form.elements.shortBaseUrl.value)
 
-    const res = await axios.post(`/api/item`, {
+    const res = await axios.post(`/api/url`, {
       originalUrl: form.elements.originalUrl.value,
       shortBaseUrl: form.elements.shortBaseUrl.value,
     })
