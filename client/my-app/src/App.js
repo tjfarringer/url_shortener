@@ -18,7 +18,7 @@ class App extends React.Component{
           </Form.Group>
   
           <Form.Group controlId="shortBaseUrl">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Enter short URL prefix</Form.Label>
             <Form.Control ref='shortBaseUrl' type="string" placeholder="Short Base URL" />
             <Form.Text className="text-muted">
               This is the base url that will be used to build the short url.
