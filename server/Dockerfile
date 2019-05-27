@@ -1,23 +1,25 @@
-# Which bash image/os are you starting "From"
+# Setup and build the client
+
+FROM node:8-alpine AS client
+
+# Create app directory
+WORKDIR /app/client/
+COPY client/package*.json client/yarn.lock ./
+RUN yarn install --production
+COPY client/ ./
+RUN npm run build
+
+
+# Setup the server
 FROM node:8-alpine
+WORKDIR /app/
+COPY --from=client /app/client/build/ ./client/build/
+WORKDIR /app/server/
+COPY server/package*.json server/yarn.lock ./
+RUN yarn install --production
+COPY server/ ./
 
-# Create a folder and set this as your working directory
-WORKDIR /app
-
-# "Copy" file to working dir
-COPY package.json yarn.lock ./
-
-# "Run" command that installs dependencies
-RUN yarn install 
-
-# Copy all files to working dir
-COPY . .
-
-# Set "env" variables
-ENV PORT 7000
-
-# Which port should the container listen on
-EXPOSE $PORT
+EXPOSE 3005
 
 # When the container runs what command should it run
 CMD [ "node", "index.js" ]
