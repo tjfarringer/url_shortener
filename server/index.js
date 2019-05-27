@@ -49,7 +49,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //app.options('*', cors()) // include before other routes
 
-app.get('/', async (req, res) => res.send('Hello World!'));
+/////app.get('/', async (req, res) => res.send('Hello World!'));
 
 
 app.use('/api', urlRoutes);
