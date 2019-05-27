@@ -54,5 +54,17 @@ app.get('/', async (req, res) => res.send('Hello World!'));
 
 app.use('/api', urlRoutes);
 
+// Serve static files if in production
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  app.use(express.static(path.join(__dirname, '../client/build')));
+
+  app.get('/*', (req, res) => {
+      res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
+} else {
+  app.get('/', async (req, res) => res.send('Listening only on server mode'));
+
+}
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
