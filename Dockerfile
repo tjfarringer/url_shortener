@@ -22,4 +22,4 @@ COPY server/ ./
 EXPOSE 3005
 
 # When the container runs what command should it run
-CMD [ "node", "index.js" ]
+CMD ["npm", "run", "start:prod"]
